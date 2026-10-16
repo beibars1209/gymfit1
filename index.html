@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GymFit — Фитнес Клуб</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- ЭКРАН АВТОРИЗАЦИИ И РЕГИСТРАЦИИ -->
+    <div id="authScreen" class="auth-screen">
+        <div class="auth-card-wrapper">
+            <div class="auth-header-glow"></div>
+            <div class="logo auth-logo">Gym<span>Fit</span></div>
+            <p class="auth-subtitle">Добро пожаловать в клуб сильных</p>
+            
+            <div class="auth-tabs">
+                <button type="button" class="tab-btn active" id="loginTabBtn" onclick="switchAuthTab('login')">Вход</button>
+                <button type="button" class="tab-btn" id="registerTabBtn" onclick="switchAuthTab('register')">Регистрация</button>
+            </div>
+
+            <!-- Форма Входа -->
+            <form id="loginForm" class="auth-form">
+                <div class="input-group">
+                    <input type="text" id="loginEmail" placeholder="Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="loginPassword" placeholder="Пароль" required>
+                </div>
+                <button type="submit" class="button auth-btn">Войти в систему</button>
+                <p id="loginError" class="auth-error"></p>
+            </form>
+
+            <!-- Форма Регистрации -->
+            <form id="registerForm" class="auth-form" style="display: none;">
+                <div class="input-group">
+                    <input type="text" id="regName" placeholder="Ваше имя" required>
+                </div>
+                <div class="input-group">
+                    <input type="email" id="regEmail" placeholder="Ваш Email" required>
+                </div>
+                <div class="input-group">
+                    <input type="password" id="regPassword" placeholder="Придумайте пароль" required>
+                </div>
+                <button type="submit" class="button auth-btn">Создать аккаунт (+100 бонусов)</button>
+                <p id="regError" class="auth-error"></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- ОСНОВНОЙ САЙТ (СКРЫТ ДО ВХОДА) -->
+    <div id="mainSiteContent" style="display: none;">
+
+        <!-- ШАПКА -->
+        <header class="header">
+            <div class="container header-container">
+                <div class="logo">Gym<span>Fit</span></div>
+                <button class="menu-button" id="menuBtn">☰</button>
+                <nav class="navigation" id="navMenu">
+                    <a href="#hero">Главная</a>
+                    <a href="#about">О нас</a>
+                    <a href="#services">Услуги</a>
+                    <a href="#booking">Запись</a>
+                    <a href="#gallery">Бассейн</a>
+                    <a href="#trainers">Тренеры</a>
+                    <a href="#directors">Руководство</a>
+                    <a href="#prices">Абонементы</a>
+                    <a href="#shop">Магазин</a>
+                    
+                    <div class="bonus-badge" title="Ваши бонусы">
+                        ⭐ <span id="userPoints">0</span> баллов
+                    </div>
+                    <button type="button" class="workout-btn" onclick="addWorkoutPoints()">+ Тренировка</button>
+                    <a href="#" id="logoutBtn" style="color: #e50914; font-weight: bold;">Выйти</a>
+                </nav>
+            </div>
+        </header>
+
+        <!-- ГЛАВНЫЙ ЭКРАН -->
+        <section id="hero" class="hero">
+            <div class="container hero-content">
+                <div>
+                    <p class="subtitle">ФИТНЕС КЛУБ</p>
+                    <h1>Твоя лучшая <span>форма</span> начинается здесь</h1>
+                    <p class="hero-text">Современное оборудование, профессиональные тренеры и индивидуальный подход к каждому клиенту.</p>
+                    <a href="#booking" class="button">Записаться на тренировку</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- О НАС -->
+        <section id="about" class="section">
+            <div class="container">
+                <p class="section-subtitle">ПРЕИМУЩЕСТВА</p>
+                <h2>Почему мы</h2>
+                <div class="about-grid">
+                    <div class="about-card">
+                        <div class="icon">🏋️‍♂️</div>
+                        <h3>Современный зал</h3>
+                        <p>Новейшие тренажеры и просторные зоны для всех видов тренировок.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="icon">🥇</div>
+                        <h3>Опытные тренеры</h3>
+                        <p>Профессиональные инструкторы помогут достичь ваших целей безопасно.</p>
+                    </div>
+                    <div class="about-card">
+                        <div class="icon">🎯</div>
+                        <h3>Индивидуальный подход</h3>
+                        <p>Программы тренировок и питания под ваши личные задачи.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- УСЛУГИ / ТРЕНИРОВКИ -->
+        <section id="services" class="section dark-section">
+            <div class="container">
+                <p class="section-subtitle">ТРЕНИРОВКИ</p>
+                <h2>Наши направления</h2>
+                <div class="cards">
+                    <div class="card training-card">
+                        <h3>Силовые тренировки</h3>
+                        <p>Тренировки для развития силы, выносливости и набора мышечной массы.</p>
+                        <a href="#booking">Записаться →</a>
+                    </div>
+                    <div class="card training-card">
+                        <h3>Кардиотренировки</h3>
+                        <p>Эффективные тренировки для улучшения выносливости и поддержания формы.</p>
+                        <a href="#booking">Записаться →</a>
+                    </div>
+                    <div class="card training-card">
+                        <h3>Функциональные тренировки</h3>
+                        <p>Комплекс упражнений для развития силы, координации и баланса.</p>
+                        <a href="#booking">Записаться →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- СЕКЦИЯ ЗАПИСИ НА ТРЕНИРОВКУ -->
+        <section id="booking" class="section">
+            <div class="container">
+                <p class="section-subtitle">ОНЛАЙН-ЗАПИСЬ</p>
+                <h2>Записаться к тренеру</h2>
+
+                <div class="schedule-notice">
+                    <p>🕒 <strong>Часы работы:</strong> Ежедневно с 07:00 до 23:00</p>
+                    <p>⚠️ <strong>Внимание:</strong> Каждый <u>последний понедельник месяца</u> — <strong>Санитарный день</strong> (клуб закрыт на обработку).</p>
+                </div>
+
+                <form id="bookingForm" class="booking-form">
+                    <div class="booking-grid">
+                        <div class="input-group">
+                            <label for="bookingTrainer">Выберите тренера:</label>
+                            <select id="bookingTrainer" required>
+                                <option value="">-- Выберите тренера --</option>
+                                <option value="Алексей Смирнов (Силовой тренинг)">Алексей Смирнов (Силовой тренинг)</option>
+                                <option value="Мария Иванова (Кардио и групповые)">Мария Иванова (Кардио и групповые)</option>
+                                <option value="Дмитрий Ковалев (Функциональная подготовка)">Дмитрий Ковалев (Функциональная подготовка)</option>
+                            </select>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="bookingDate">Дата тренировки:</label>
+                            <input type="date" id="bookingDate" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label for="bookingTime">Время занятий (07:00 - 22:00):</label>
+                            <input type="time" id="bookingTime" min="07:00" max="22:00" required>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="button booking-submit-btn">Подтвердить запись</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- ГАЛЕРЕЯ / ЗАЛЫ И БАССЕЙН -->
+        <section id="gallery" class="section dark-section">
+            <div class="container">
+                <p class="section-subtitle">ИНФРАСТРУКТУРА</p>
+                <h2>Наши залы и аквазона</h2>
+                <div class="cards">
+                    <div class="card gallery-card">
+                        <div class="card-photo">
+                            <img src="images.jfif" alt="Тренажерный зал">
+                        </div>
+                        <h3>Тренажерный зал</h3>
+                        <p>Просторная зона с современным силовым и кардиооборудованием.</p>
+                    </div>
+                    <div class="card gallery-card">
+                        <div class="card-photo">
+                            <img src="hero-pool.webp" alt="Бассейн">
+                        </div>
+                        <h3>Бассейн</h3>
+                        <p>25-метровый бассейн для плавания, аквааэробики и свободного отдыха.</p>
+                    </div>
+                    <div class="card gallery-card">
+                        <div class="card-photo">
+                            <img src="IMG_0315_1.jpg" alt="Баня и Сауна">
+                        </div>
+                        <h3>Финская баня и СПА</h3>
+                        <p>Зона расслабления и восстановления сил после интенсивных тренировок.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ТРЕНЕРЫ -->
+        <section id="trainers" class="section">
+            <div class="container">
+                <p class="section-subtitle">КОМАНДА</p>
+                <h2>Наши тренеры</h2>
+                <div class="trainers-grid">
+                    <div class="trainer-card">
+                        <div class="trainer-photo">
+                            <img src="sprt.jpg" alt="Алексей Смирнов" class="trainer-img">
+                        </div>
+                        <div class="trainer-info">
+                            <h3>Алексей Смирнов</h3>
+                            <p>Главный тренер / Силовой тренинг</p>
+                        </div>
+                    </div>
+                    <div class="trainer-card">
+                        <div class="trainer-photo">
+                            <img src="cheerful-young-sports-woman-with-arms-crossed_171337-8914.avif" alt="Мария Иванова" class="trainer-img">
+                        </div>
+                        <div class="trainer-info">
+                            <h3>Мария Иванова</h3>
+                            <p>Инструктор кардио и групповых программ</p>
+                        </div>
+                    </div>
+                    <div class="trainer-card">
+                        <div class="trainer-photo">
+                            <img src="usluggi-69.jpg.jpg" alt="Дмитрий Ковалев" class="trainer-img">
+                        </div>
+                        <div class="trainer-info">
+                            <h3>Дмитрий Ковалев</h3>
+                            <p>Тренер по функциональной подготовке</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- РУКОВОДСТВО -->
+        <section id="directors" class="section directors-section dark-section">
+            <div class="container">
+                <p class="section-subtitle">РУКОВОДСТВО</p>
+                <h2>Руководство GymFit</h2>
+                <div class="directors-grid">
+                    <div class="director-card">
+                        <div class="director-avatar">К</div>
+                        <h3>Кирилл</h3>
+                        <p class="director-role">Основатель / Акционер GymFit</p>
+                        <span class="director-desc">Отвечает за концепцию, стратегию развития и идеологию проекта.</span>
+                    </div>
+                    <div class="director-card">
+                        <div class="director-avatar">Б</div>
+                        <h3>Бейбарыс</h3>
+                        <p class="director-role">Генеральный директор</p>
+                        <span class="director-desc">Отвечает за разработку сайта, IT-инфраструктуру и техническое развитие GymFit.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- АБОНЕМЕНТЫ -->
+        <section id="prices" class="section">
+            <div class="container">
+                <p class="section-subtitle">ТАРИФЫ</p>
+                <h2>Выберите свой абонемент</h2>
+                <div class="cards">
+                    <div class="price-card">
+                        <h3>Базовый</h3>
+                        <div class="price price-val" data-base="25 990 ₸">25 990 ₸</div>
+                        <p class="price-period">в месяц</p>
+                        <ul>
+                            <li>Доступ в тренажерный зал</li>
+                            <li>Безлимитное время</li>
+                            <li>Раздевалка и душ</li>
+                        </ul>
+                        <button type="button" class="button" onclick="buyPass('Базовый')">Оформить</button>
+                    </div>
+                    <div class="price-card popular">
+                        <div class="popular-label">ПОПУЛЯРНЫЙ</div>
+                        <h3>Стандарт</h3>
+                        <div class="price price-val" data-base="45 990 ₸">45 990 ₸</div>
+                        <p class="price-period">в месяц</p>
+                        <ul>
+                            <li>Доступ во все зоны</li>
+                            <li>Групповые занятия</li>
+                            <li>Вводная тренировка с тренером</li>
+                        </ul>
+                        <button type="button" class="button" onclick="buyPass('Стандарт')">Оформить</button>
+                    </div>
+                    <div class="price-card">
+                        <h3>Премиум</h3>
+                        <div class="price price-val" data-base="70 990 ₸">70 990 ₸</div>
+                        <p class="price-period">в месяц</p>
+                        <ul>
+                            <li>Все опции стандарта</li>
+                            <li>Персональный тренер (4 занятия)</li>
+                            <li>Доступ в фитнес-бар</li>
+                        </ul>
+                        <button type="button" class="button" onclick="buyPass('Премиум')">Оформить</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- МАГАЗИН БОНУСОВ -->
+        <section id="shop" class="section dark-section">
+            <div class="container">
+                <p class="section-subtitle">БОНУСНАЯ ПРОГРАММА</p>
+                <h2>Магазин за баллы ⭐</h2>
+                <div class="cards">
+                    <div class="card shop-card" onclick="openProductModal('cocktail')">
+                        <div class="card-photo">
+                            <img src="https://images.unsplash.com/photo-1553530666-ba11a7da3888?auto=format&fit=crop&w=800&q=80" alt="Протеиновый коктейль">
+                        </div>
+                        <div class="shop-card-content">
+                            <h3>Протеиновый коктейль</h3>
+                            <p>Питательный коктейль с высоким содержанием белка после тренировки.</p>
+                            <div class="shop-price">⭐ 100 баллов</div>
+                            <button type="button" class="button" onclick="event.stopPropagation(); buyShopItem('Протеиновый коктейль', 100)">Обменять</button>
+                        </div>
+                    </div>
+                    <div class="card shop-card" onclick="openProductModal('shaker')">
+                        <div class="card-photo">
+                            <img src="https://images.unsplash.com/photo-1546483875-ad9014c88eba?auto=format&fit=crop&w=800&q=80" alt="Фирменный шейкер GymFit">
+                        </div>
+                        <div class="shop-card-content">
+                            <h3>Фирменный шейкер GymFit</h3>
+                            <p>Стильный эргономичный шейкер объемом 700 мл из пищевого пластика BPA-free.</p>
+                            <div class="shop-price">⭐ 250 баллов</div>
+                            <button type="button" class="button" onclick="event.stopPropagation(); buyShopItem('Фирменный шейкер', 250)">Обменять</button>
+                        </div>
+                    </div>
+                    <div class="card shop-card" onclick="openProductModal('trainer')">
+                        <div class="card-photo">
+                            <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="Персональная тренировка">
+                        </div>
+                        <div class="shop-card-content">
+                            <h3>Персональная тренировка</h3>
+                            <p>Индивидуальная тренировка с экспертом клуба (60 минут).</p>
+                            <div class="shop-price">⭐ 500 баллов</div>
+                            <button type="button" class="button" onclick="event.stopPropagation(); buyShopItem('Персональная тренировка', 500)">Обменять</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ПОДВАЛ -->
+        <footer>
+            <div class="container">
+                <p>© 2026 GymFit. Все права защищены.</p>
+            </div>
+        </footer>
+
+        <!-- ОБЩЕЕ МОДАЛЬНОЕ ОКНО СООБЩЕНИЙ -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <button class="close" id="closeModal">&times;</button>
+                <h2 id="modalTitle">Успешно!</h2>
+                <p id="modalMessage">Операция выполнена успешно.</p>
+                <button class="button" id="modalOkBtn">Отлично</button>
+            </div>
+        </div>
+
+        <!-- МОДАЛЬНОЕ ОКНО ДЕТАЛЕЙ ТОВАРА -->
+        <div class="modal" id="productModal">
+            <div class="modal-content product-modal-content">
+                <button class="close" id="closeProductModal">&times;</button>
+                <div class="product-modal-grid">
+                    <div class="product-modal-image">
+                        <img id="pmImage" src="" alt="Товар">
+                    </div>
+                    <div class="product-modal-details">
+                        <h2 id="pmTitle">Название товара</h2>
+                        <div class="shop-price" id="pmPrice">⭐ 0 баллов</div>
+                        <p id="pmDescription" class="pm-desc">Описание товара</p>
+                        <div class="pm-specs">
+                            <h4>Характеристики товара:</h4>
+                            <ul id="pmSpecsList"></ul>
+                        </div>
+                        <button type="button" class="button" id="pmBuyBtn">Обменять за баллы</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- Конец mainSiteContent -->
+
+    <script src="script.js"></script>
+</body>
+</html>
